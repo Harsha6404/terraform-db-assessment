@@ -17,3 +17,23 @@ provider "aws" {
 module "network" {
   source = "../../modules/network"
 }
+
+module "ecs" {
+
+  source = "../../modules/ecs"
+
+  subnet_id = module.network.private_subnet
+
+  security_group_id = aws_security_group.ecs.id
+
+}
+
+module "rds" {
+
+  source = "../../modules/rds"
+
+  subnet_id = module.network.private_subnet
+
+  security_group_id = aws_security_group.rds.id
+
+}
